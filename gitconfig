@@ -1,0 +1,15 @@
+[user]
+  name = ahmadsoe
+  email = ahmadsoe@gmail.com
+[core]
+  editor = vim
+[color]
+  ui = true
+[color "status"]
+  changed = yellow
+  added = green
+  untracked = red
+[url "https://"]
+  insteadOf = git://
+[github]
+  user = ahmadsoe

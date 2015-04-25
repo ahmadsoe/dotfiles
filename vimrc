@@ -76,6 +76,10 @@ let g:rubycomplete_rails = 1
 set t_Co=256
 colorscheme babymate256
 
+" transparent background
+hi Normal ctermbg=none
+hi NonText ctermbg=none
+
 set laststatus=2
 let g:airline_theme = 'ubaryd'
 let g:airline_section_y = ''

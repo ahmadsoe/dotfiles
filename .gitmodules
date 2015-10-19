@@ -6,7 +6,7 @@
 	url = https://github.com/bling/vim-airline
 [submodule "vim/bundle/ctrlp.vim"]
 	path = vim/bundle/ctrlp.vim
-	url = https://github.com/kien/ctrlp.vim
+	url = https://github.com/ctrlpvim/ctrlp.vim.git
 [submodule "vim/bundle/colorschemes"]
 	path = vim/bundle/colorschemes
 	url = git@github.com:flazz/vim-colorschemes.git
@@ -82,3 +82,24 @@
 [submodule "vim/bundle/ctrlp-cmatcher"]
 	path = vim/bundle/ctrlp-cmatcher
 	url = git@github.com:JazzCore/ctrlp-cmatcher.git
+[submodule "vim/bundle/vim-expand-region"]
+	path = vim/bundle/vim-expand-region
+	url = git@github.com:terryma/vim-expand-region.git
+[submodule "vim/bundle/vim-repeat"]
+	path = vim/bundle/vim-repeat
+	url = git://github.com/tpope/vim-repeat.git
+[submodule "vim/bundle/vim-eunuch"]
+	path = vim/bundle/vim-eunuch
+	url = git://github.com/tpope/vim-eunuch.git
+[submodule "vim/bundle/vim-jsx"]
+	path = vim/bundle/vim-jsx
+	url = https://github.com/mxw/vim-jsx.git
+[submodule "vim/bundle/quick-scope"]
+	path = vim/bundle/quick-scope
+	url = https://github.com/unblevable/quick-scope
+[submodule "vim/bundle/incsearch.vim"]
+	path = vim/bundle/incsearch.vim
+	url = https://github.com/haya14busa/incsearch.vim
+[submodule "vim/bundle/vim-unimpaired"]
+	path = vim/bundle/vim-unimpaired
+	url = git://github.com/tpope/vim-unimpaired.git

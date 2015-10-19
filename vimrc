@@ -3,15 +3,8 @@ runtime bundle/vim-pathogen/autoload/pathogen.vim
 execute pathogen#infect()
 call pathogen#helptags()
 
-" change the mapleader from \ to
+" change the mapleader from \ to space
 let mapleader=" "
-
-" esc to jj
-imap jj <Esc>
-
-" Quickly edit/reload the vimrc file
-nmap <silent> <leader>ev :e $MYVIMRC<CR>
-nmap <silent> <leader>sv :so $MYVIMRC<CR>
 
 set hidden
 syntax on
@@ -35,14 +28,14 @@ set incsearch     " show search matches as you type"
 set splitright
 set showcmd
 set guioptions-=T " hide toolbar on gVim
-
+set textwidth=80
+set colorcolumn=+1
+set iskeyword+=-
 set timeoutlen=1000 ttimeoutlen=0
-
 set wildignore=*.swp,*.bak,*.pyc,*.class,tmp/**,dist/**,node_modules/**
 set title                " change the terminal's title"
 set visualbell           " don't beep"
 set noerrorbells         " don't beep"
-
 set nobackup
 set noswapfile
 
@@ -54,24 +47,6 @@ set undofile
 " highlight tabs char
 set list
 set listchars=tab:>-
-
-nnoremap ; :
-
-" arrow key for resize
-nnoremap <Left> :vertical resize +1<CR>
-nnoremap <Right> :vertical resize -1<CR>
-nnoremap <Up> :resize +1<CR>
-nnoremap <Down> :resize -1<CR>
-
-" yank to the end
-nnoremap Y y$
-
-" save file with sudo
-cmap w!! %!sudo tee > /dev/null %
-
-let g:rubycomplete_buffer_loading = 1
-let g:rubycomplete_classes_in_global = 1
-let g:rubycomplete_rails = 1
 
 set t_Co=256
 colorscheme babymate256
@@ -104,6 +79,81 @@ let g:airline_symbols.paste = 'Þ'
 let g:airline_symbols.paste = '∥'
 let g:airline_symbols.whitespace = 'Ξ'
 
+" esc to jk and disable esc
+inoremap jk <Esc>
+
+" Quickly edit/reload the vimrc file
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>sv :so $MYVIMRC<CR>
+
+nnoremap ; :
+nnoremap : ;
+vnoremap ; :
+vnoremap : ;
+
+" arrow key for resize
+nnoremap <Left> :vertical resize +1<CR>
+nnoremap <Right> :vertical resize -1<CR>
+nnoremap <Up> :resize +1<CR>
+nnoremap <Down> :resize -1<CR>
+
+" disable key on insert Mode
+inoremap <Left> <NOP>
+inoremap <Right> <NOP>
+inoremap <CR> <NOP>
+inoremap <Up> <NOP>
+inoremap <Down> <NOP>
+inoremap <Bs> <NOP>
+inoremap <Del> <NOP>
+
+" yank to the end
+nnoremap Y y$
+
+nnoremap <Leader>o :CtrlP<CR>
+nnoremap <Leader>w :w<CR>
+vmap <Leader>y "+y
+vmap <Leader>d "+d
+nmap <Leader>p "+p
+nmap <Leader>P "+P
+vmap <Leader>p "+p
+vmap <Leader>P "+P
+nmap <Leader><Leader> V
+
+" Rails & ember
+nnoremap <Leader>ga :CtrlP app/assets<CR>
+nnoremap <Leader>gn :CtrlP app/components<CR>
+nnoremap <Leader>gc :CtrlP app/controllers<CR>
+nnoremap <Leader>gh :CtrlP app/helpers<CR>
+nnoremap <Leader>gm :CtrlP app/models<CR>
+nnoremap <Leader>gs :CtrlP app/styles<CR>
+nnoremap <Leader>gt :CtrlP app/templates<CR>
+nnoremap <Leader>gv :CtrlP app/views<CR>
+
+vmap v <Plug>(expand_region_expand)
+
+" Autoformat F3
+noremap <F3> :Autoformat<CR><CR>
+
+" find and replace
+nnoremap <Leader>fr :OverCommandLine s/<CR>
+nnoremap <Leader>fR :OverCommandLine%s/<CR>
+xnoremap <Leader>fr :'<,'>OverCommandLine s/<CR>
+
+nnoremap <Esc><Esc> :nohlsearch<CR>
+
+map / <Plug>(incsearch-forward)
+map ? <Plug>(incsearch-backward)
+
+autocmd BufRead,BufNewFile *.es6 setfiletype javascript
+
+autocmd FileType javascript nnoremap <Leader>c ciwconst<Esc>b
+autocmd FileType javascript nnoremap <Leader>l ciwlet<Esc>b
+autocmd FileType javascript nnoremap <Leader>f :s/: function//g<CR><Esc><Esc>
+
+let g:rubycomplete_buffer_loading = 1
+let g:rubycomplete_classes_in_global = 1
+let g:rubycomplete_rails = 1
+
 let g:ctrlp_match_func = {'match':'matcher#cmatch'}
 " The Silver Searcher
 if executable('ag')
@@ -122,8 +172,13 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_loc_list_height = 5
+let g:syntastic_aggregate_errors = 1
 
+let g:syntastic_javascript_checkers = findfile('.eslintrc', '.;') != '' ? ['jscs', 'eslint'] : ['jscs', 'jshint']
+let g:syntastic_scss_checkers = ['scss_lint', 'sass']
 let g:syntastic_filetype_map = { 'html.handlebars': 'handlebars' }
+
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
 " mustache
 let g:mustache_abbreviations = 1
@@ -132,26 +187,14 @@ let g:mustache_abbreviations = 1
 let g:gist_detect_filetype = 1
 let g:gist_post_private = 1
 
-let g:SuperTabDefaultCompletionType = "<c-n>"
+let g:SuperTabDefaultCompletionType = '<c-n>'
+let g:SuperTabMappingBackward = '<s-nul>'
 
-" Autoformat F3
-noremap <F3> :Autoformat<CR><CR>
+let g:delimitMate_expand_space = 1
+imap <silent> <C-J> <Plug>delimitMateCR
 
-nnoremap <Esc><Esc> :nohlsearch<CR>
-
-" find and replace
-nnoremap <Leader>fr :call VisualFindAndReplace()<CR>
-xnoremap <Leader>fr :call VisualFindAndReplaceWithSelection()<CR>
-
-function! VisualFindAndReplace()
-    :OverCommandLine%s/
-    :w
-endfunction
-
-function! VisualFindAndReplaceWithSelection() range
-    :'<,'>OverCommandLine s/
-    :w
-endfunction
+let g:endwise_no_mappings = 1
+autocmd FileType ruby imap <C-J> <C-J><Plug>DiscretionaryEnd
 
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 let g:instant_markdown_slow = 1
@@ -161,3 +204,13 @@ command MarkdownPreview InstantMarkdownPreview
 let g:user_emmet_install_global = 0
 autocmd FileType html,hbs,html.handlebars,css,scss EmmetInstall
 let g:user_emmet_leader_key='<C-E>'
+
+augroup incsearch-keymap
+  autocmd!
+  autocmd VimEnter * call s:incsearch_keymap()
+augroup END
+
+function! s:incsearch_keymap()
+  IncSearchNoreMap <Tab> <Over>(buffer-complete)
+  IncSearchNoreMap <S-Tab> <Over>(buffer-complete-prev)
+endfunction

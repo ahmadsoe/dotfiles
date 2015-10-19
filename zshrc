@@ -45,11 +45,11 @@ ZSH_THEME="cloud"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git sudo ember-cli)
+plugins=(git git-extras ember-cli vi-mode)
 
 # User configuration
 
-export PATH="$PATH:/home/ahmad/.linuxbrew/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+export PATH="$PATH:$HOME/.linuxbrew/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 
 fpath=(~/.zsh-completions/src $fpath)
 
@@ -61,11 +61,7 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
-else
-  export EDITOR='mvim'
-fi
+export EDITOR='vim'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -81,15 +77,28 @@ fi
 # Example aliases
 alias zshconfig="vim ~/.zshrc"
 
+# keybindings for history autocomplete
+autoload history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey  '^[[A'  history-beginning-search-backward-end
+bindkey  '^[[B'  history-beginning-search-forward-end
+
 # aliases
 [[ -f ~/.aliases ]] && source ~/.aliases
+
+# FASD
+eval "$(fasd --init auto)"
 
 [[ "$TERM" == "xterm" ]] && export TERM=xterm-256color
 
 # prevent ZSH to print an error when no match can be found
 unsetopt nomatch
 
-NPM_PACKAGES="/home/ahmad/.npm-packages"
+# disable terminal flow control <C-s> and <C-q>, save two prefix for vim
+stty -ixon
+
+NPM_PACKAGES="$HOME/.npm-packages"
 NODE_PATH="$NPM_PACKAGES/lib/node_modules:$NODE_PATH"
 PATH="$NPM_PACKAGES/bin:$PATH"
 # Unset manpath so we can inherit from /etc/manpath via the `manpath`
@@ -104,3 +113,15 @@ qfind () {
   find . -exec grep -l -s $1 {} \;
   return 0
 }
+
+fancy-ctrl-z () {
+  if [[ $#BUFFER -eq 0 ]]; then
+    BUFFER="fg"
+    zle accept-line
+  else
+    zle push-input
+    zle clear-screen
+  fi
+}
+zle -N fancy-ctrl-z
+bindkey '^Z' fancy-ctrl-z

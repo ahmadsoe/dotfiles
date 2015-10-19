@@ -1,5 +1,6 @@
 *~
 *.swp
 vim/undo/*
+vim/.netrwhist
 oh-my-zsh/
 zsh-completions/

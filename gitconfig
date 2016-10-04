@@ -3,13 +3,31 @@
   email = ahmadsoe@gmail.com
 [core]
   editor = vim
+  excludesfile = ~/.gitignore
 [color]
-  ui = true
+  ui = always
 [color "status"]
-  changed = yellow
-  added = green
-  untracked = red
+  added = yellow
+  changed = green
+  untracked = cyan
 [url "https://"]
   insteadOf = git://
 [github]
   user = ahmadsoe
+[push]
+  default = current
+[color "diff"]
+  meta = yellow bold
+  commit = green bold
+  frag = magenta bold
+  old = red bold
+  new = green bold
+  whitespace = red reverse
+[color "diff-highlight"]
+  oldNormal = red bold
+  oldHighlight = red bold 52
+  newNormal = green bold
+  newHighlight = green bold 22
+[pager]
+  diff = diff-so-fancy | less --tabs=4 -RFX
+  show = diff-so-fancy | less --tabs=4 -RFX

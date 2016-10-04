@@ -1,6 +1,6 @@
 #!/bin/bash
 dir=~/.dotfiles
-files="aliases gitconfig tmux.conf vimrc vim zshrc oh-my-zsh zsh-completions"
+files="aliases ctags gitconfig tmux.conf vimrc vim zshrc oh-my-zsh zsh-completions jscsrc"
 
 for file in $files; do
   echo "Creating symlink to $file in home directory."

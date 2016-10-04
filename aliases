@@ -1,2 +1,7 @@
 alias c="clear"
 alias v="vim"
+alias time='/usr/bin/time -p'
+alias pp='python -m json.tool'
+alias open=xdg-open
+alias gl=fshow
+alias bi=bundle install

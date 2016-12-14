@@ -164,6 +164,7 @@ autocmd FileType javascript nnoremap <Leader>f :s/: function//g<CR><Esc><Esc>
 
 autocmd FileType ruby nnoremap <Leader>d orequire'pry';binding.pry<esc>:w<cr>
 autocmd FileType ruby nnoremap <Leader>W :w<CR> :call ScreenShellSend("load '".@%."';")<CR>
+autocmd FileType ruby nnoremap <Leader>b csw'X
 
 let g:rubycomplete_buffer_loading = 1
 let g:rubycomplete_classes_in_global = 1
@@ -191,10 +192,8 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_loc_list_height = 5
 let g:syntastic_javascript_eslint_exec = 'eslint_d'
-let g:syntastic_javascript_jscs_exec = 'jscs'
 
-" let g:syntastic_javascript_checkers = findfile('.jshintrc', '.;') != '' ? ['jscs', 'jshint'] : ['jscs', 'eslint']
-let g:syntastic_javascript_checkers = findfile('.jshintrc', '.;') != '' ? ['jshint'] : ['eslint']
+let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_scss_checkers = ['sass_lint']
 let g:syntastic_sass_checkers = ['sass_lint']
 let g:syntastic_filetype_map = { 'html.handlebars': 'handlebars' }

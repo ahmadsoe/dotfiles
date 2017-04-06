@@ -5,3 +5,4 @@ alias pp='python -m json.tool'
 alias open=xdg-open
 alias gl=fshow
 alias bi=bundle install
+alias top=htop

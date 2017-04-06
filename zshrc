@@ -87,9 +87,6 @@ bindkey  '^N'  history-beginning-search-forward-end
 # aliases
 [[ -f ~/.aliases ]] && source ~/.aliases
 
-# FASD
-eval "$(fasd --init auto)"
-
 [[ "$TERM" == "xterm" ]] && export TERM=xterm-256color
 
 # prevent ZSH to print an error when no match can be found
@@ -109,6 +106,8 @@ unset MANPATH  # delete if you already modified MANPATH elsewhere in your config
 MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+export PATH="$PATH:`yarn global bin`"
 
 fancy-ctrl-z () {
   if [[ $#BUFFER -eq 0 ]]; then

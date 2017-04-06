@@ -153,6 +153,7 @@ nmap <Leader>m [m
 map / <Plug>(incsearch-forward)
 map ? <Plug>(incsearch-backward)
 
+let g:ag_prg="ag --vimgrep --smart-case --ignore yarn.lock"
 let g:ag_working_path_mode='r'
 nnoremap \ :Ag<SPACE>
 
@@ -177,7 +178,7 @@ let g:ctrlp_mruf_relative = 1
 " The Silver Searcher
 if executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  let g:ctrlp_user_command = 'ag %s -l --nocolor --ignore bower_components --ignore node_modules --ignore dist --ignore tmp --ignore yarn.lock -g ""'
   let g:ctrlp_use_caching = 0
 endif
 

@@ -36,14 +36,14 @@ set title                " change the terminal's title"
 set visualbell           " don't beep"
 set noerrorbells         " don't beep"
 
-set backupdir=~/.vim/backup
-set directory=~/.vim/temp
+set backupdir=~/.vim/backup//
+set directory=~/.vim/temp//
 
 set tags=./tags;
 
 " Save undo histories
 set undolevels=1000
-set undodir=~/.vim/undo
+set undodir=~/.vim/undo//
 set undofile
 
 " highlight tabs char

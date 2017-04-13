@@ -1,6 +1,6 @@
 #!/bin/bash
 dir=~/.dotfiles
-files="aliases gitconfig tmux.conf vimrc vim zshrc oh-my-zsh zsh-completions pryrc irbrc"
+files="aliases gitconfig tmux.conf vimrc vim zshrc oh-my-zsh zsh-completions zsh-syntax-highlighting pryrc irbrc"
 
 for file in $files; do
   echo "Creating symlink to $file in home directory."
@@ -15,6 +15,14 @@ install_zsh () {
 
     if [[ ! -d $dir/zsh-completions/ ]]; then
       git clone https://github.com/zsh-users/zsh-completions.git
+    fi
+
+    if [[ ! -d $dir/oh-my-zsh/custom/plugins/zsh-autosuggestions/ ]]; then
+      git clone https://github.com/zsh-users/zsh-autosuggestions.git
+    fi
+
+    if [[ ! -d $dir/zsh-syntax-highlighting/ ]]; then
+      git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
     fi
 
     if [[ ! $(echo $SHELL) == $(which zsh) ]]; then

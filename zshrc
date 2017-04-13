@@ -45,7 +45,7 @@ ZSH_THEME="cloud"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git-extras ember-cli vi-mode extract)
+plugins=(git-extras ember-cli vi-mode extract zsh-autosuggestions)
 
 # User configuration
 
@@ -105,9 +105,11 @@ PATH="$NPM_PACKAGES/bin:$PATH"
 unset MANPATH  # delete if you already modified MANPATH elsewhere in your config
 MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export PATH="$PATH:$HOME/.rvm/bin"
 
-export PATH="$PATH:`yarn global bin`"
+[ -s "/home/ahmad/.scm_breeze/scm_breeze.sh" ] && source "/home/ahmad/.scm_breeze/scm_breeze.sh"
+
+export PATH="$PATH:$HOME/.config/yarn/global/node_modules/.bin"
 
 fancy-ctrl-z () {
   if [[ $#BUFFER -eq 0 ]]; then
@@ -127,13 +129,11 @@ pip() {
   if [ "$1" = "install" -o "$1" = "bundle" ]; then
     cmd="$1"
     shift
-    /usr/local/bin/pip $cmd --user $@
+    /usr/bin/pip $cmd --user $@
   else
-    /usr/local/bin/pip $@
+    /usr/bin/pip $@
   fi
 }
-
-[ -s "$HOME/.scm_breeze/scm_breeze.sh" ] && source "$HOME/.scm_breeze/scm_breeze.sh"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_COMPLETION_TRIGGER='~~'
@@ -185,3 +185,8 @@ z() {
   local dir
   dir="$(fasd -Rdl "$1" | fzf -1 -0 --no-sort +m)" && cd "${dir}" || return 1
 }
+
+source $HOME/.aliases
+
+# zsh-syntax-highlighting requires source at the end
+source $HOME/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

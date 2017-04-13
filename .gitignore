@@ -4,3 +4,4 @@ vim/undo/*
 vim/.netrwhist
 oh-my-zsh/
 zsh-completions/
+zsh-syntax-highlighting/

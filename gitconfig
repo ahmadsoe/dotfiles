@@ -21,7 +21,7 @@
   commit = green bold
   frag = magenta bold
   old = red bold
-  new = green bold
+  new = green
   whitespace = red reverse
 [color "diff-highlight"]
   oldNormal = red bold

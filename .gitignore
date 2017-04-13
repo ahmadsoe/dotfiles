@@ -1,5 +1,7 @@
 *~
 *.swp
+vim/backup/*
+vim/temp/*
 vim/undo/*
 vim/.netrwhist
 oh-my-zsh/

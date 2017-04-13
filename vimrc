@@ -35,8 +35,9 @@ set wildignore=*.swp,*.bak,*.pyc,*.class,tmp/**,dist/**,node_modules/**
 set title                " change the terminal's title"
 set visualbell           " don't beep"
 set noerrorbells         " don't beep"
-set nobackup
-set noswapfile
+
+set backupdir=~/.vim/backup
+set directory=~/.vim/temp
 
 set tags=./tags;
 

@@ -1,11 +1,14 @@
+# zmodload zsh/zprof # uncomment this line to debug
+
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
+export DOTFILES=$HOME/.dotfiles
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="cloud"
+ZSH_THEME="kolo"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -39,19 +42,17 @@ ZSH_THEME="cloud"
 # HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
+ZSH_CUSTOM=$DOTFILES/zsh
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git-extras ember-cli vi-mode extract zsh-autosuggestions)
+plugins=(git-extras ember-cli vi-mode extract zsh-autosuggestions fzf zsh-syntax-highlighting)
 
 # User configuration
 
 export PATH="$PATH:$HOME/.linuxbrew/bin:$HOME/.bin/:$HOME/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
-
-fpath=(~/.zsh-completions/src $fpath)
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -73,43 +74,94 @@ export EDITOR='vim'
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
-#
-# Example aliases
-alias zshconfig="vim ~/.zshrc"
 
 # keybindings for history autocomplete
 autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
-bindkey  '^P'  history-beginning-search-backward-end
-bindkey  '^N'  history-beginning-search-forward-end
-
-# aliases
-[[ -f ~/.aliases ]] && source ~/.aliases
+bindkey '^P' history-beginning-search-backward-end
+bindkey '^N' history-beginning-search-forward-end
 
 [[ "$TERM" == "xterm" ]] && export TERM=xterm-256color
 
 # prevent ZSH to print an error when no match can be found
 unsetopt nomatch
 
-# disable terminal flow control <C-s> and <C-q>, save two prefix for vim
+# disable terminal flow control <C-s> and <C-q>
 stty -ixon
 
 ANDROID_HOME="$HOME/.android/Sdk"
+export PATH="$PATH:$HOME/.config/composer/vendor/bin"
 
-NPM_PACKAGES="$HOME/.npm-packages"
-NODE_PATH="$NPM_PACKAGES/lib/node_modules:$NODE_PATH"
-PATH="$NPM_PACKAGES/bin:$PATH"
-# Unset manpath so we can inherit from /etc/manpath via the `manpath`
-# command
-unset MANPATH  # delete if you already modified MANPATH elsewhere in your config
-MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
+export LESS=-RFX
+export BAT_THEME="Oceanic Next"
+export BAT_STYLE="plain"
+export GOPATH=$HOME/Code/go
+export KDEHOME=$HOME/.kde4
+export ERL_AFLAGS="-kernel shell_history enabled"
+
+# color completions
+eval `dircolors`
+zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
+
+# This speeds up pasting w/ autosuggest
+# https://github.com/zsh-users/zsh-autosuggestions/issues/238
+pasteinit() {
+  OLD_SELF_INSERT=${${(s.:.)widgets[self-insert]}[2,3]}
+  zle -N self-insert url-quote-magic # I wonder if you'd need `.url-quote-magic`?
+}
+
+pastefinish() {
+  zle -N self-insert $OLD_SELF_INSERT
+}
+
+zstyle :bracketed-paste-magic paste-init pasteinit
+zstyle :bracketed-paste-magic paste-finish pastefinish
+
+eval "$(scmpuff init -s)"
+
+function less() {
+  eval "$(scmpuff expand -- "/usr/bin/less" "$@")"
+}
+
+function rm() {
+  eval "$(scmpuff expand -- "/usr/bin/rm" "$@")"
+}
+
+# Node, nvm related
+export PATH="$PATH:$HOME/.yarn/bin"
+
+lazy_load() {
+  echo "Lazy loading $1 ..."
+
+  local -a names
+  if [[ -n "$ZSH_VERSION" ]]; then
+    names=("${(@s: :)${1}}")
+  else
+    names=($1)
+  fi
+  unalias "${names[@]}"
+  . $2
+  shift 2
+  $*
+}
+
+group_lazy_load() {
+  local script
+  script=$1
+  shift 1
+  for cmd in "$@"; do
+    alias $cmd="lazy_load \"$*\" $script $cmd"
+  done
+}
+
+export NVM_DIR=$HOME/.config/nvm
+group_lazy_load /usr/share/nvm/init-nvm.sh nvm node npm yarn ember
 
 export PATH="$PATH:$HOME/.rvm/bin"
+group_lazy_load $HOME/.rvm/scripts/rvm rvm irb rake bundle gem rails guard
 
-[ -s "/home/ahmad/.scm_breeze/scm_breeze.sh" ] && source "/home/ahmad/.scm_breeze/scm_breeze.sh"
-
-export PATH="$PATH:$HOME/.config/yarn/global/node_modules/.bin"
+unset -f group_lazy_load
 
 fancy-ctrl-z () {
   if [[ $#BUFFER -eq 0 ]]; then
@@ -123,8 +175,6 @@ fancy-ctrl-z () {
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
 
-#fortune $HOME/Code/fortunes | cowsay -f $(ls /usr/share/cowsay/cows/ | shuf | head -n1)
-
 pip() {
   if [ "$1" = "install" -o "$1" = "bundle" ]; then
     cmd="$1"
@@ -135,58 +185,17 @@ pip() {
   fi
 }
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_COMPLETION_TRIGGER='~~'
-export FZF_DEFAULT_COMMAND='ag -g ""'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-
-# fshow - git commit browser
-fshow() {
-  git log --graph --color=always \
-      --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
-  fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
-      --bind "ctrl-m:execute:
-                (grep -o '[a-f0-9]\{7\}' | head -1 |
-                xargs -I % sh -c 'git show --color=always % | diff-so-fancy | less --tabs=4 -RFX') << 'FZF-EOF'
-                {}
-FZF-EOF"
+man() {
+    LESS_TERMCAP_md=$'\e[01;31m' \
+    LESS_TERMCAP_me=$'\e[0m' \
+    LESS_TERMCAP_se=$'\e[0m' \
+    LESS_TERMCAP_so=$'\e[01;44;33m' \
+    LESS_TERMCAP_ue=$'\e[0m' \
+    LESS_TERMCAP_us=$'\e[01;32m' \
+    command man "$@"
 }
 
-# fstash - easier way to deal with stashes
-# type fstash to get a list of your stashes
-# enter shows you the contents of the stash
-# ctrl-d shows a diff of the stash against your current HEAD
-# ctrl-b checks the stash out as a branch, for easier merging
-fstash() {
-  local out q k sha
-  while out=$(
-    git stash list --pretty="%C(yellow)%h %>(14)%Cgreen%cr %C(blue)%gs" |
-    fzf --ansi --no-sort --query="$q" --print-query \
-        --expect=ctrl-d,ctrl-b);
-  do
-    mapfile -t out <<< "$out"
-    q="${out[0]}"
-    k="${out[1]}"
-    sha="${out[-1]}"
-    sha="${sha%% *}"
-    [[ -z "$sha" ]] && continue
-    if [[ "$k" == 'ctrl-d' ]]; then
-      git diff $sha
-    elif [[ "$k" == 'ctrl-b' ]]; then
-      git stash branch "stash-$sha" $sha
-      break;
-    else
-      git stash show -p $sha
-    fi
-  done
-}
+# aliases
+[[ -f ~/.aliases ]] && source ~/.aliases
 
-z() {
-  local dir
-  dir="$(fasd -Rdl "$1" | fzf -1 -0 --no-sort +m)" && cd "${dir}" || return 1
-}
-
-source $HOME/.aliases
-
-# zsh-syntax-highlighting requires source at the end
-source $HOME/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# zprof # uncomment this line to debug

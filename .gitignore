@@ -1,6 +1,7 @@
 *~
 *.swp
 vim/backup/*
+vim/plugged/*
 vim/temp/*
 vim/undo/*
 vim/.netrwhist

@@ -19,7 +19,7 @@ Pry.config.ls.instance_var_color = :bright_yellow
 
 begin
   require 'awesome_print'
-  Pry.config.print = proc { |output, value| Pry::Helpers::BaseHelpers.stagger_output("=> #{value.ai(indent: -2)}", output) }
+  AwesomePrint.pry!
 rescue LoadError => err
   puts "[~/.pryrc] Load AwesomePrint failed: #{err.message}"
 end

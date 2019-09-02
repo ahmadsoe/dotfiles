@@ -1,79 +1,95 @@
 call plug#begin('~/.vim/plugged')
+Plug 'mhartington/oceanic-next'
+Plug 'itchyny/lightline.vim'
 
-  Plug 'mhartington/oceanic-next'
-  Plug 'itchyny/lightline.vim'
+Plug 'sheerun/vim-polyglot'
+Plug 'Raimondi/delimitMate'
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 
-  Plug 'sheerun/vim-polyglot'
-  Plug 'Raimondi/delimitMate'
-  Plug 'AndrewRadev/splitjoin.vim'
-  Plug 'Chiel92/vim-autoformat'
-  Plug 'tpope/vim-commentary'
-  Plug 'tpope/vim-endwise'
-  Plug 'tpope/vim-fugitive'
-  Plug 'airblade/vim-gitgutter'
-  Plug 'joukevandermaas/vim-ember-hbs'
-  Plug 'Galooshi/vim-import-js'
+" Plug 'brooth/far.vim'
 
-  Plug 'lambdalisue/suda.vim'
-  Plug 'mileszs/ack.vim'
-  " Plug 'brooth/far.vim'
+Plug 'mileszs/ack.vim'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
 
-  Plug 'mileszs/ack.vim'
-  Plug 'tpope/vim-repeat'
-  Plug 'tpope/vim-surround'
-  Plug 'tpope/vim-rails'
-  Plug 'unifieddialog/vim-rspec-focus'
+Plug 'unblevable/quick-scope'
+Plug 'tmhedberg/matchit'
 
-  Plug 'unblevable/quick-scope'
-  Plug 'tmhedberg/matchit'
-  Plug 'vim-scripts/ruby-matchit'
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-unimpaired'
+Plug 'osyo-manga/vim-over'
+Plug 'bkad/CamelCaseMotion'
+Plug 'kana/vim-textobj-line'
+Plug 'kana/vim-textobj-user'
+Plug 'rhysd/vim-textobj-ruby'
+Plug 'wellle/targets.vim'
+Plug 'terryma/vim-expand-region'
+Plug 'haya14busa/incsearch.vim'
+Plug 'matze/vim-move'
+Plug 'machakann/vim-highlightedyank'
 
-  Plug 'tpope/vim-abolish'
-  Plug 'tpope/vim-unimpaired'
-  Plug 'osyo-manga/vim-over'
-  Plug 'bkad/CamelCaseMotion'
-  Plug 'kana/vim-textobj-line'
-  Plug 'kana/vim-textobj-user'
-  Plug 'rhysd/vim-textobj-ruby'
-  Plug 'wellle/targets.vim'
-  Plug 'terryma/vim-expand-region'
-  Plug 'haya14busa/incsearch.vim'
-  Plug 'matze/vim-move'
+Plug 'majutsushi/tagbar'
+Plug 'farmergreg/vim-lastplace'
+Plug 'yuttie/comfortable-motion.vim'
+Plug 'ervandew/screen'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-vinegar'
+Plug 'tpope/vim-eunuch'
+Plug 'csexton/trailertrash.vim'
+Plug 'sbdchd/neoformat'
+Plug 'janko-m/vim-test'
 
-  Plug 'majutsushi/tagbar'
-  Plug 'farmergreg/vim-lastplace'
-  Plug 'ervandew/screen'
-  Plug 'christoomey/vim-tmux-navigator'
-  Plug 'tpope/vim-dispatch'
-  Plug 'tpope/vim-vinegar'
-  Plug 'tpope/vim-eunuch'
-  Plug 'csexton/trailertrash.vim'
+Plug 'scrooloose/nerdtree'
+Plug '/usr/share/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'octref/rootignore'
 
-  Plug 'scrooloose/nerdtree'
-  Plug '/usr/share/fzf'
-  Plug 'junegunn/fzf.vim'
+Plug 'dense-analysis/ale'
+Plug 'maximbaz/lightline-ale'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-  Plug 'w0rp/ale'
-  Plug 'maximbaz/lightline-ale'
-  Plug 'slashmili/alchemist.vim'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
 
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
+" elixir
+Plug 'slashmili/alchemist.vim'
 
-  Plug 'editorconfig/editorconfig-vim'
-  Plug 'mhinz/vim-mix-format'
+" ruby
+Plug 'tpope/vim-rails'
+Plug 'unifieddialog/vim-rspec-focus'
+Plug 'vim-scripts/ruby-matchit'
 
-  Plug 'ludovicchabant/vim-gutentags'
-  Plug 'SirVer/ultisnips'
-  Plug 'honza/vim-snippets'
+" javascript
+Plug 'othree/yajs.vim'
+Plug 'othree/es.next.syntax.vim'
+Plug 'othree/javascript-libraries-syntax.vim'
+Plug 'othree/jsdoc-syntax.vim'
+Plug 'heavenshell/vim-jsdoc'
+Plug 'joukevandermaas/vim-ember-hbs'
+Plug 'Galooshi/vim-import-js'
 
-  Plug 'suan/vim-instant-markdown'
-  Plug 'xolox/vim-misc'
-  Plug 'lifepillar/vim-cheat40'
+" typescript
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'Quramy/tsuquyomi'
 
-  " Always load the vim-devicons as the very last one.
-  Plug 'ryanoasis/vim-devicons'
+" html
+Plug 'mattn/emmet-vim'
+
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'vim-vdebug/vdebug'
+
+Plug 'suan/vim-instant-markdown'
+Plug 'xolox/vim-misc'
+Plug 'lifepillar/vim-cheat40'
+Plug 'embear/vim-localvimrc'
+
+" Always load the vim-devicons as the very last one.
+Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
 set nocompatible
@@ -109,6 +125,8 @@ set noerrorbells
 set nobackup
 set noswapfile
 set timeoutlen=1000 ttimeoutlen=0
+set wildmode=longest:full,full
+set wildmenu
 set wildignore=*.swp,*.bak,*.pyc,*.class,tmp/**,dist/**,node_modules/**
 set tags=./tags;
 set undolevels=1000
@@ -116,6 +134,7 @@ set undodir=~/.vim/undo//
 set undofile
 set clipboard=unnamedplus
 set updatetime=750
+set encoding=utf-8
 
 " highlight tabs char
 set list
@@ -161,8 +180,14 @@ inoremap <Up> <NOP>
 inoremap <Down> <NOP>
 inoremap <Del> <NOP>
 
+" " Switch HL / ^$ for faster movement
+" noremap H ^
+" noremap L $
+" noremap ^ H
+" noremap $ L
+
 " yank to the end
-nnoremap Y v$y
+nnoremap Y y$
 
 " paste multiple times
 xnoremap p pgvy
@@ -179,10 +204,9 @@ vmap v <Plug>(expand_region_expand)
 
 nnoremap <Esc><Esc> :<C-u>nohlsearch<CR>
 
+let g:incsearch#auto_nohlsearch = 1
 map / <Plug>(incsearch-forward)
 map ? <Plug>(incsearch-backward)
-
-let g:incsearch#auto_nohlsearch = 1
 map n <Plug>(incsearch-nohl-n)
 map N <Plug>(incsearch-nohl-N)
 
@@ -212,22 +236,66 @@ augroup VimDiff
   autocmd VimEnter,FilterWritePre * if &diff | GitGutterDisable | endif
 augroup END
 
-" ALE
-highlight link ALEWarningSign String
-highlight link ALEErrorSign Title
+highlight SpellBad guibg=#ec5f67 ctermbg=203 guifg=#ffffff ctermfg=15
+highlight SpellCap guibg=#fac863 ctermbg=221 guifg=#ffffff ctermfg=15
 
+let g:polyglot_disabled = ['javascript', 'typescript']
+
+let g:comfortable_motion_scroll_down_key = 'j'
+let g:comfortable_motion_scroll_up_key = 'k'
+let g:comfortable_motion_friction = 200.0
+let g:comfortable_motion_air_drag = 0.0
+
+" ALE
+let g:ale_sign_warning = '▲'
+let g:ale_sign_error = '✗'
+let g:ale_echo_msg_format = '%linter%% (code)%: %s '
+
+let g:ale_list_window_size = 3
 let g:ale_lint_on_text_changed = 'normal'
-let g:ale_lint_on_insert_leave = 1
+let g:ale_lint_on_insert_leave = 0
+let g:ale_lint_delay = 1000
+" let g:ale_fix_on_save = 1
+
 let g:ale_linter_aliases = {'html': []} " TODO
-let g:ale_linters = { 'javascript': ['eslint'] }
-let g:ale_javascript_eslint_executable = 'eslint_d'
-let g:ale_javascript_eslint_use_global = 1
-let g:ale_echo_msg_format = '%linter%: %s '
+let g:ale_linters = {
+      \ 'javascript': ['standard', 'eslint'],
+      \ 'scss': ['stylelint']
+      \ }
+
+" alternative: Neoformat
+let g:ale_fixers = {
+      \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+      \ 'javascript': ['standard', 'prettier', 'eslint'],
+      \ 'php': ['phpcbf']
+      \ }
+
+let g:ale_javascript_standard_options = '--verbose'
+let g:ale_linters_ignore = { 'typescript': ['tslint'] }
+let g:ale_javascript_eslint_suppress_missing_config = 1
 
 nmap <silent> <Leader>k <Plug>(ale_previous_wrap)
 nmap <silent> <Leader>j <Plug>(ale_next_wrap)
 
 let g:lightline#ale#indicator_checking = '...'
+
+" let g:neoformat_verbose = 1
+let g:neoformat_basic_format_retab = 1
+let g:neoformat_basic_format_trim = 1
+let g:neoformat_enabled_javascript = ['standard', 'prettier', 'prettiereslint', 'eslint_d']
+let g:neoformat_enabled_html = ['prettyhtml', 'prettier', 'htmlbeautify', 'tidy']
+let g:neoformat_javascript_standard = {
+      \ 'exe': 'standard',
+      \ 'args': ['--stdin', '--fix'],
+      \ 'stdin': 1,
+      \ 'valid_exit_codes': [0, 1],
+      \ }
+
+let g:neoformat_html_prettyhtml = {
+      \ 'exe': 'prettyhtml',
+      \ 'args': ['--stdin'],
+      \ 'stdin': 1,
+      \ }
 
 let g:lightline = {
       \ 'colorscheme': 'oceanicnext',
@@ -258,10 +326,14 @@ augroup VimDiff
   autocmd VimEnter,FilterWritePre * if &diff | ALEDisable | endif
 augroup END
 
-let g:ackprg = 'rg --vimgrep --no-heading'
+let g:ackprg = 'rg --vimgrep --no-heading --hidden'
+nmap \ :Ack<space>
+
+let test#strategy = "dispatch"
+nmap <silent> <Leader>t :TestNearest<CR>
+nmap <silent> <Leader>tf :TestFile<CR>
 
 autocmd BufNewFile,BufReadPost *.example set filetype=sh
-autocmd FileType ruby nnoremap <Leader>f :ToggleFocusTag<CR>
 autocmd FileType ruby nnoremap <Leader>d orequire'pry';binding.pry<esc>:w<cr>
 autocmd FileType ruby nnoremap <Leader>W :w<CR> :call ScreenShellSend("load '".@%."';")<CR>
 
@@ -274,8 +346,8 @@ function! s:list_cmd()
 endfunction
 
 command! -bang -nargs=? -complete=dir Files
-  \ call fzf#vim#files(<q-args>, {'source': s:list_cmd(),
-  \                               'options': '--tiebreak=index'}, <bang>0)
+      \ call fzf#vim#files(<q-args>, {'source': s:list_cmd(),
+      \                               'options': '--tiebreak=index'}, <bang>0)
 
 command! -bang -nargs=* Ag
       \ call fzf#vim#ag(<q-args>,
@@ -299,10 +371,12 @@ let g:rubycomplete_buffer_loading = 1
 let g:rubycomplete_classes_in_global = 1
 let g:rubycomplete_rails = 1
 
-let g:deoplete#enable_at_startup = 1
 let g:gutentags_file_list_command = 'rg --files'
 
 let g:alchemist_tag_disable = 1
+
+let g:user_emmet_mode = 'n'
+let g:user_emmet_leader_key = ','
 
 nnoremap sj :SplitjoinSplit<CR>
 nnoremap sk :SplitjoinJoin<CR>
@@ -314,13 +388,16 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 " mustache
 let g:mustache_abbreviations = 1
 
-command! SudoWrite write suda://%
-
 autocmd FileType javascript silent! nnoremap <buffer> <unique> <silent> <Leader>r :ImportJSWord<CR>
 autocmd FileType css command! SortCSS :g#\({\n\)\@<=#.,/}/sort
 autocmd FileType scss command! SortSCSS :g#\({\n\)\@<=#.,/\.*[{}]\@=/-1 sort
 
-let g:EditorConfig_core_mode = 'external_command'
+autocmd BufNewFile,BufRead *{tslint,eslint,jshint}rc set filetype=json
+
+let g:tsuquyomi_javascript_support = 1
+let g:tsuquyomi_single_quote_import = 1
+let g:tsuquyomi_semicolon_import = 0
+" let g:tsuquyomi_completion_detail = 1
 
 let NERDTreeHijackNetrw = 0
 
@@ -358,3 +435,31 @@ let g:mta_filetypes = {
     \ 'html.handlebars': 1,
     \ 'xml' : 1
     \}
+
+let g:vdebug_keymap = {
+\    "run" : "<Leader>/",
+\    "run_to_cursor" : "<S-Up>",
+\    "step_over" : "<S-Down>",
+\    "step_into" : "<S-Right>",
+\    "step_out" : "<S-Left>",
+\    "close" : "Q",
+\    "detach" : "<F7>",
+\    "set_breakpoint" : "<Leader>s",
+\    "eval_visual" : "<Leader>e"
+\}
+
+" Allows Vdebug to bind to all interfaces.
+let g:vdebug_options = {}
+
+" Stops execution at the first line.
+let g:vdebug_options['break_on_open'] = 1
+let g:vdebug_options['max_children'] = 128
+
+" Use the compact window layout.
+let g:vdebug_options['watch_window_style'] = 'compact'
+
+" Because it's the company default.
+let g:vdebug_options['ide_key'] = 'PHPSTORM'
+
+" Need to set as empty for this to work with Vagrant boxes.
+let g:vdebug_options['server'] = ""

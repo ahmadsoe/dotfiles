@@ -5,7 +5,7 @@
   editor = vim
   excludesfile = ~/.gitignore
 [color]
-  ui = always
+  ui = auto
 [color "status"]
   added = yellow
   changed = green
@@ -31,3 +31,7 @@
 [pager]
   diff = diff-so-fancy | less --tabs=4 -RFX
   show = diff-so-fancy | less --tabs=4 -RFX
+[mergetool]
+  keepBackup = false
+[merge]
+  tool = vimdiff

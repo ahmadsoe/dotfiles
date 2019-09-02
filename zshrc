@@ -95,6 +95,7 @@ export PATH="$PATH:$HOME/.config/composer/vendor/bin"
 
 export LESS=-RFX
 export BAT_THEME="Oceanic Next"
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 export BAT_STYLE="plain"
 export GOPATH=$HOME/Code/go
 export KDEHOME=$HOME/.kde4
@@ -103,6 +104,9 @@ export ERL_AFLAGS="-kernel shell_history enabled"
 # color completions
 eval `dircolors`
 zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
+
+. $HOME/.asdf/asdf.sh
+. $HOME/.asdf/completions/asdf.bash
 
 # This speeds up pasting w/ autosuggest
 # https://github.com/zsh-users/zsh-autosuggestions/issues/238
@@ -127,41 +131,6 @@ function less() {
 function rm() {
   eval "$(scmpuff expand -- "/usr/bin/rm" "$@")"
 }
-
-# Node, nvm related
-export PATH="$PATH:$HOME/.yarn/bin"
-
-lazy_load() {
-  echo "Lazy loading $1 ..."
-
-  local -a names
-  if [[ -n "$ZSH_VERSION" ]]; then
-    names=("${(@s: :)${1}}")
-  else
-    names=($1)
-  fi
-  unalias "${names[@]}"
-  . $2
-  shift 2
-  $*
-}
-
-group_lazy_load() {
-  local script
-  script=$1
-  shift 1
-  for cmd in "$@"; do
-    alias $cmd="lazy_load \"$*\" $script $cmd"
-  done
-}
-
-export NVM_DIR=$HOME/.config/nvm
-group_lazy_load /usr/share/nvm/init-nvm.sh nvm node npm yarn ember
-
-export PATH="$PATH:$HOME/.rvm/bin"
-group_lazy_load $HOME/.rvm/scripts/rvm rvm irb rake bundle gem rails guard
-
-unset -f group_lazy_load
 
 fancy-ctrl-z () {
   if [[ $#BUFFER -eq 0 ]]; then

@@ -1,7 +1,9 @@
 {
   "coc.preferences.extensionUpdateCheck": "never",
-  "suggest.floatEnable": true,
+  "suggest.floatEnable": false,
+  "suggest.enablePreview": false,
   "diagnostic.messageTarget": "echo",
+  "diagnostic.displayByAle": true,
   "signature.target": "echo",
   "coc.preferences.hoverTarget": "echo"
 }

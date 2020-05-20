@@ -1,20 +1,25 @@
 call plug#begin('~/.vim/plugged')
 Plug 'mhartington/oceanic-next'
+Plug 'arcticicestudio/nord-vim'
 Plug 'itchyny/lightline.vim'
 
 Plug 'sheerun/vim-polyglot'
-Plug 'Raimondi/delimitMate'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
+" Plug 'Raimondi/delimitMate'
+" Plug 'tpope/vim-endwise'
+Plug 'cohama/lexima.vim'
+
 " Plug 'brooth/far.vim'
 
+Plug 'jez/vim-superman'
 Plug 'mileszs/ack.vim'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
+Plug 'drzel/vim-split-line'
 
 Plug 'unblevable/quick-scope'
 Plug 'tmhedberg/matchit'
@@ -34,7 +39,6 @@ Plug 'machakann/vim-highlightedyank'
 
 Plug 'majutsushi/tagbar'
 Plug 'farmergreg/vim-lastplace'
-Plug 'yuttie/comfortable-motion.vim'
 Plug 'ervandew/screen'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-dispatch'
@@ -43,6 +47,8 @@ Plug 'tpope/vim-eunuch'
 Plug 'csexton/trailertrash.vim'
 Plug 'sbdchd/neoformat'
 Plug 'janko-m/vim-test'
+
+Plug 'jparise/vim-graphql'
 
 Plug 'scrooloose/nerdtree'
 Plug '/usr/share/fzf'
@@ -55,6 +61,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
+
+Plug 'lepture/vim-velocity'
 
 " elixir
 Plug 'slashmili/alchemist.vim'
@@ -74,14 +82,13 @@ Plug 'joukevandermaas/vim-ember-hbs'
 Plug 'Galooshi/vim-import-js'
 
 " typescript
-Plug 'HerringtonDarkholme/yats.vim'
-Plug 'Quramy/tsuquyomi'
+" Plug 'HerringtonDarkholme/yats.vim'
 
 " html
 Plug 'mattn/emmet-vim'
 
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'vim-vdebug/vdebug'
+" Plug 'vim-vdebug/vdebug'
 
 Plug 'suan/vim-instant-markdown'
 Plug 'xolox/vim-misc'
@@ -129,8 +136,9 @@ set wildmode=longest:full,full
 set wildmenu
 set wildignore=*.swp,*.bak,*.pyc,*.class,tmp/**,dist/**,node_modules/**
 set tags=./tags;
-set undolevels=1000
+ " (double slash at end makes vim avoid name collisions)
 set undodir=~/.vim/undo//
+set undolevels=1000
 set undofile
 set clipboard=unnamedplus
 set updatetime=750
@@ -147,6 +155,8 @@ set guifont=DroidSansMono\ Nerd\ Font\ 11
 set termguicolors
 let g:oceanic_next_terminal_bold = 1
 let g:oceanic_next_terminal_italic = 1
+
+" colorscheme nord
 colorscheme OceanicNext
 
 set laststatus=2
@@ -163,6 +173,7 @@ nmap k gk
 
 nnoremap <BS> <C-^>
 
+noremap <CR> :
 nnoremap ; :
 vnoremap ; :
 
@@ -236,15 +247,15 @@ augroup VimDiff
   autocmd VimEnter,FilterWritePre * if &diff | GitGutterDisable | endif
 augroup END
 
-highlight SpellBad guibg=#ec5f67 ctermbg=203 guifg=#ffffff ctermfg=15
-highlight SpellCap guibg=#fac863 ctermbg=221 guifg=#ffffff ctermfg=15
+" highlight SpellBad guibg=#ec5f67 ctermbg=203 guifg=#ffffff ctermfg=15
+" highlight SpellCap guibg=#fac863 ctermbg=221 guifg=#ffffff ctermfg=15
 
-let g:polyglot_disabled = ['javascript', 'typescript']
+highlight SpellBad term=reverse cterm=underline ctermfg=1 gui=undercurl guifg=#BF616A guibg=#2E3440 guisp=#BF616A
+highlight SpellCap term=reverse cterm=underline ctermfg=3 gui=undercurl guifg=#EBCB8B guibg=#2E3440 guisp=#EBCB8B
 
-let g:comfortable_motion_scroll_down_key = 'j'
-let g:comfortable_motion_scroll_up_key = 'k'
-let g:comfortable_motion_friction = 200.0
-let g:comfortable_motion_air_drag = 0.0
+au BufRead,BufNewFile *.vtl set ft=velocity syntax=velocity
+
+let g:polyglot_disabled = ['javascript']
 
 " ALE
 let g:ale_sign_warning = '▲'
@@ -259,7 +270,7 @@ let g:ale_lint_delay = 1000
 
 let g:ale_linter_aliases = {'html': []} " TODO
 let g:ale_linters = {
-      \ 'javascript': ['standard', 'eslint'],
+      \ 'javascript': ['eslint'],
       \ 'scss': ['stylelint']
       \ }
 
@@ -270,8 +281,13 @@ let g:ale_fixers = {
       \ 'php': ['phpcbf']
       \ }
 
+let g:ale_linters_ignore = {
+      \ 'typescript': ['tslint', 'tsserver'],
+      \ 'typescript.tsx': ['tslint', 'tsserver'],
+      \ 'typescriptreact': ['tslint', 'tsserver'],
+      \ }
+
 let g:ale_javascript_standard_options = '--verbose'
-let g:ale_linters_ignore = { 'typescript': ['tslint'] }
 let g:ale_javascript_eslint_suppress_missing_config = 1
 
 nmap <silent> <Leader>k <Plug>(ale_previous_wrap)
@@ -293,7 +309,7 @@ let g:neoformat_javascript_standard = {
 
 let g:neoformat_html_prettyhtml = {
       \ 'exe': 'prettyhtml',
-      \ 'args': ['--stdin'],
+      \ 'args': ['--print-width 120', '--use-prettier', '--stdin'],
       \ 'stdin': 1,
       \ }
 
@@ -326,12 +342,27 @@ augroup VimDiff
   autocmd VimEnter,FilterWritePre * if &diff | ALEDisable | endif
 augroup END
 
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+" Remap for rename current word
+nmap gm <Plug>(coc-rename)
+" Show documentation in preview window
+nmap <silent> <leader>h :call CocAction('doHover')<CR>
+
+nnoremap S :SplitLine<CR>
+
 let g:ackprg = 'rg --vimgrep --no-heading --hidden'
 nmap \ :Ack<space>
 
 let test#strategy = "dispatch"
 nmap <silent> <Leader>t :TestNearest<CR>
 nmap <silent> <Leader>tf :TestFile<CR>
+
+autocmd FileType php setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
+autocmd FileType php nnoremap <Leader>d o<?php print_r($); ?><esc>T$i
 
 autocmd BufNewFile,BufReadPost *.example set filetype=sh
 autocmd FileType ruby nnoremap <Leader>d orequire'pry';binding.pry<esc>:w<cr>
@@ -394,14 +425,9 @@ autocmd FileType scss command! SortSCSS :g#\({\n\)\@<=#.,/\.*[{}]\@=/-1 sort
 
 autocmd BufNewFile,BufRead *{tslint,eslint,jshint}rc set filetype=json
 
-let g:tsuquyomi_javascript_support = 1
-let g:tsuquyomi_single_quote_import = 1
-let g:tsuquyomi_semicolon_import = 0
-" let g:tsuquyomi_completion_detail = 1
-
 let NERDTreeHijackNetrw = 0
 
-let g:delimitMate_expand_space = 1
+let g:lexima_ctrlh_as_backspace = 1
 
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 let g:instant_markdown_slow = 1

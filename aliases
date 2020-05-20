@@ -20,5 +20,7 @@ alias stop='systemctl stop'
 alias status='systemctl status'
 alias diff='git diff --no-index'
 alias man-tldr=tldr
-alias cat=bat
 alias mdkir=mkdir
+
+#alias wp="/opt/cpanel/ea-php72/root/usr/bin/php -d memory_limit=512M ~/bin/wp"
+#alias composer="/opt/cpanel/ea-php72/root/usr/bin/php -d allow_url_fopen=1 -f /opt/cpanel/composer/bin/composer"

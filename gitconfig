@@ -31,7 +31,27 @@
 [pager]
   diff = diff-so-fancy | less --tabs=4 -RFX
   show = diff-so-fancy | less --tabs=4 -RFX
+[diff]
+  compactionHeuristic = true
 [mergetool]
   keepBackup = false
 [merge]
   tool = vimdiff
+  conflictstyle = diff3
+[hub]
+  protocol = git
+[alias]
+  # the SHA to compare diffs against
+  review-base = !git merge-base HEAD \"${review_base:-master}\"
+  # list files which have changed since review_base
+  files = !git diff --name-only $(git review-base)
+  # Same as above, but with a diff stat instead of just names
+  # (better for interactive use)
+  stat = !git diff --stat $(git review-base)
+  # split-diff style review using vim-fugitive Gdiff
+  review = !$EDITOR -p $(git files) +\"tabdo Gvdiffsplit ${review_base:-master}\" +\"let g:gitgutter_diff_base = '${review_base:-master}'\"
+  reviewone = !$EDITOR -p +\"tabdo Gvdiffsplit ${review_base:-master}\" +\"let g:gitgutter_diff_base = '${review_base:-master}'\"
+  reviewf = !$EDITOR -p $(git files | fzf -m --reverse --height 40%) +\"tabdo Gvdiffsplit ${review_base:-master}\" +\"let g:gitgutter_diff_base = '${review_base:-master}'\"
+  # For when the diff is too big to review with :Gdiff
+  diff-review = !git diff $(git review-base)
+  zip-update = !git archive -o update.zip HEAD $(git diff --name-only HEAD^ --diff-filter=ACMRTUXB)

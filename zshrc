@@ -97,9 +97,11 @@ export LESS=-RFX
 export BAT_THEME="Oceanic Next"
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 export BAT_STYLE="plain"
-export GOPATH=$HOME/Code/go
 export KDEHOME=$HOME/.kde4
 export ERL_AFLAGS="-kernel shell_history enabled"
+
+export GOPATH=$HOME/go
+export PATH="$PATH:$HOME/go/bin"
 
 # color completions
 eval `dircolors`
@@ -124,8 +126,12 @@ zstyle :bracketed-paste-magic paste-finish pastefinish
 
 eval "$(scmpuff init -s)"
 
-function less() {
-  eval "$(scmpuff expand -- "/usr/bin/less" "$@")"
+function gr() {
+  eval "$(scmpuff expand --relative -- "$SCMPUFF_GIT_CMD" "restore" "$@")"
+}
+
+function cat() {
+  eval "$(scmpuff expand -- "/usr/bin/bat" "$@")"
 }
 
 function rm() {
